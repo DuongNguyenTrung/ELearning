@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 18, 2022, 5:54:54 AM
+    Author     : Laptop88
+*/
+
+.table, table.collection, table.flexible, .generaltable {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+table {
+    border-collapse: collapse;
+}
+table.quizreviewsummary th.cell {
+    padding: 1px 0.5em 1px 1em;
+    font-weight: 700;
+    text-align: right;
+    width: 10em;
+    background: #f0f0f0;
+}
+table.quizreviewsummary td.cell {
+    padding: 1px 1em 1px 0.5em;
+    text-align: left;
+    background: #fafafa;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+body #page a {
+    color: #fd647a;
+    text-decoration: none;
+    outline: none;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+    border: 0;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.left{
+    float: left;
+    width: 70%;
+}
+.right{
+    float: right;
+    width: 30%;
+}
+.info{
+    float: left;
+    width: 20%;
+}
+.content{
+    float: right;
+    width: 80%;
+    border-top: #fd647a 2px solid;
+}
+body #page h3 {
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+.qtext{font-weight: 700;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    /*border-bottom: 1px solidrgba(0,0,0,.1);*/
+}
+.rightanswer{
+    color: #7d5a29;
+    background-color: #fcefdc;
+    padding: 10px;
+    margin-top: 2rem;
+}
+.r0 .r1{
+    margin-top: 0.7rem;
+}
+.m-l-1{
+    margin-left: 1rem;
+}
+.pagination li{
+    margin-left: 0.5rem;
+}

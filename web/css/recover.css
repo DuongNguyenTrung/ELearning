@@ -1,0 +1,65 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 1, 2022, 12:07:20 AM
+    Author     : Laptop88
+*/
+
+.bg-home {
+    height: 100vh;
+    background-size: cover;
+    align-self: center;
+    position: relative;
+    background-position: center center
+}
+
+.row>* {
+    position: relative
+}
+
+.card .card-body {
+    padding: 1.5rem
+}
+
+.rounded {
+    border-radius: 5px !important
+}
+
+.text-muted {
+    color: #8492a6 !important
+}
+
+.form-label {
+    font-weight: 500
+}
+
+.form-control {
+    border: 1px solid #e9ecef;
+    font-size: 14px;
+    line-height: 26px;
+    background-color: #fff
+}
+
+.form-control:focus {
+    border-color: #06BBCC;
+    box-shadow: none
+}
+
+.btn-primary {
+    color: #fff !important;
+}
+
+.back-to-home {
+    position: fixed;
+    top: 4%;
+    right: 2%;
+    z-index: 1
+}
+
+button {
+    border-radius: 0.5rem !important;
+}
+

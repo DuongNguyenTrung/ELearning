@@ -1,0 +1,63 @@
+a {
+    font-size: 30px;
+}
+
+.header {
+    margin-top: 20px;
+}
+
+li {
+    list-style-type: none;
+    padding: 10px 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.profile {
+    margin: auto;
+    border-radius: 10px;
+    width: 65%;
+    background-color: white;
+    border: solid 1px;
+    height: 630px;
+}
+
+html {
+    background-color: #ccc;
+}
+
+.profile h1 {
+    border-bottom: solid 2px black;
+}
+
+.avata {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.avata img {
+    border-radius: 50%;
+    width: 15%;
+}
+
+.form {
+    justify-content: center;
+    width: 60%;
+    font-size: 20px;
+    margin: auto;
+}
+
+input {
+    padding: 10px 70px;
+}
+
+table {
+    margin: auto;
+}
+
+tr,
+td {
+    padding: 5px 50px;
+}

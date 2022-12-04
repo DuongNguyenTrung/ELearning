@@ -1,0 +1,12 @@
+.des-date{
+    margin-left: 35rem;
+}
+.merge-inline{
+    display: flex;
+}
+.des-date input{
+    width: 8.5rem;
+}
+.pre-des{
+    color: #4e73df;
+}
