@@ -37,7 +37,21 @@
         <link href="css/style.css" rel="stylesheet">
         <link href="lib/animate/animate.min.css" rel="stylesheet">
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+        <style>
+            .social-container a {
+                border: 1px solid #DDDDDD;
+                border-radius: 50%;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 5px;
+                height: 40px;
+                width: 40px;
+            }
+            .social-container {
+                margin: 20px 0;
+            }
+        </style>
     </head>
 
     <body>
@@ -611,7 +625,7 @@
         </div>
 
     </div>
-     <script>
+    <script>
         function EditProfile() {
 
             var a = document.getElementById("username");
@@ -634,7 +648,7 @@
         }
         ;
     </script>
-  <script>
+    <script>
         var loadFile = function (event) {
             var output = document.getElementById('output');
             var removepic = document.getElementById('remove-pic');
@@ -649,12 +663,12 @@
         };
     </script>
     <script>
-               function deleteFile() {
+        function deleteFile() {
             var output = document.getElementById('output');
             var removepic = document.getElementById('remove-pic');
             var avtimg = document.getElementById('avt-img');
 //     document.getElementById("myform").reset();
-  output.style.display="none";
+            output.style.display = "none";
             document.getElementById("avatar").value = null;
             output.src = avtimg.src;
             output.onload = function () {
@@ -716,6 +730,11 @@
                         </div>
                         <div class="mb-3 d-flex justify-content-center">
                             <input type="submit" class="btn btn-info w-100 rounded-pill" value="Submit"/>
+                        </div>
+                        <div class="social-container">
+                            <a href="${fburl}" class="social"><i class="fab fa-facebook-f"></i></a>
+                            <a href="${url}" class="social"><i class="fab fa-google-plus-g"></i></a>
+                            <a href="${githubUrl}" class="social"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                         <div class="modal-footer d-block">
                             <p class="text-center">Not yet account?

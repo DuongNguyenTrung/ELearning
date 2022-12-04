@@ -19,6 +19,7 @@ import model.CategoryCourse;
 import model.Course;
 import model.Blog;
 import model.User;
+import utils.Constants;
 
 /**
  *
@@ -60,6 +61,9 @@ public class homeServlet extends HttpServlet {
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("newestCourse", newestCourse);
         request.setAttribute("listtop", listtop);
+        request.setAttribute("url", Constants.URL);
+        request.setAttribute("fburl", Constants.FACEBOOK_URL);
+        request.setAttribute("githubUrl", Constants.GITHUB_URL);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 

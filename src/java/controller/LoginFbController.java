@@ -37,7 +37,7 @@ public class LoginFbController extends HttpServlet {
             request.setAttribute("url", Constants.URL);
             request.setAttribute("fburl", Constants.FACEBOOK_URL);
             request.setAttribute("githubUrl", Constants.GITHUB_URL);
-            RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
             dis.forward(request, response);
         } else {
             String accessToken = AuthUtils.getTokenFb(code);
@@ -49,8 +49,8 @@ public class LoginFbController extends HttpServlet {
                 a = AuthUtils.toAccount(gpojo);
                 dao.register(a);
             }
-            request.getSession().setAttribute("user", a);
-            RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
+            request.getSession().setAttribute("account", a);
+            RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
             dis.forward(request, response);
         }
     }

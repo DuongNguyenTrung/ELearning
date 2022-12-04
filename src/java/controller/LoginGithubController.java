@@ -42,7 +42,7 @@ public class LoginGithubController extends HttpServlet {
         if (code == null || code.isEmpty()) {
             request.setAttribute("url", Constants.URL);
             request.setAttribute("githubUrl", Constants.GITHUB_URL);
-            RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
             dis.forward(request, response);
         } else {
             String accessToken = AuthUtils.getTokenGithub(code);
@@ -54,8 +54,8 @@ public class LoginGithubController extends HttpServlet {
                 a = AuthUtils.toAccount(gpojo);
                 dao.register(a);
             }
-            request.getSession().setAttribute("user", a);
-            RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
+            request.getSession().setAttribute("account", a);
+            RequestDispatcher dis = request.getRequestDispatcher("home.jsp");
             dis.forward(request, response);
         }
     }
