@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,18 +34,20 @@
     <body style="background-color: #f5f5f5;">
         <jsp:include page="header.jsp"></jsp:include>
             <div class="text-center p-5" style="height: 400px">
-            <c:if test="${checkverify == "0"}">
-                <h1>Thank You For Registration!</h1>
-                <p class="lead">Please Check your Email for Account Verification Link.</p>
-            </c:if>
-            <c:if test="${checkverify == "1"}">
-                <h1 class="text-success">Thank You For Registration!</h1>
-                <p class="lead text-success">Your account has been verify successfully.</p>
-            </c:if>
 
-            <p class="lead"><a href="home" class="btn btn-lg btn-primary">Back to Home Page</a></p>
-        </div>
+
+                <p class="lead"><a href="home" class="btn btn-lg btn-primary">Back to Home Page</a></p>
+            </div>
+        <c:if test="${checkverify == '1'}">
+            <h1 class="text-success">Thank You For Registration!</h1>
+            <p class="lead text-success">Your account has been verify successfully.</p>
+        </c:if>
+        <c:if test="${checkverify == '0'}">
+            <h1>Thank You For Registration!</h1>
+            <p class="lead">Please Check your Email for Account Verification Link.</p>
+        </c:if>
 
         <!-- FOOTER -->
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
+</html>

@@ -442,7 +442,7 @@
                             <h1 class="mb-5">Courses Categories</h1>
                         </div>
                         <div class="row">
-
+                            
                             <div class="row">
                                 <c:forEach var="o" items="${listCategory}">
                                     <div class="col-md-4">
@@ -707,7 +707,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="login" method="POST">
+                    <form action="login-nor" method="POST">
                         <div class="alert-danger" role="alert">
                             <p>${mess}</p>
                         </div>

@@ -80,7 +80,7 @@ public class UserController extends HttpServlet {
                     String content = "&email=" + account.getEmail() + "&captcha=" + captcha + "&type=recover";
                     String enContent = EncodeData.enCode(content);
                     SendMail.setContentRecover(account.getUsername(),
-                            "http://localhost:8084/Online-Learning-SWP/user?action=verification&id=" + enContent, email);
+                            "http://localhost:8080/F8/user?action=verification&id=" + enContent, email);
                     userdao.removeCaptcha(account.getEmail());
                     userdao.addCaptcha(account.getEmail(), captcha);
                     request.setAttribute("error", "Link đặt lại mật khẩu được gửi đến email của bạn!");

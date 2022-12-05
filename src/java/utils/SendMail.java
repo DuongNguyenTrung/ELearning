@@ -8,44 +8,53 @@ package utils;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+
 /**
  *
  * @author DELL
  */
 public class SendMail {
-    public static ResourceBundle bundle = ResourceBundle.getBundle("resources.email");
+
+    static final String fromEmail = "duongtongmon3@gmail.com";
+    // Mat khai email cua ban
+    static final String password = "nivkykpdqbgnrilk";
 
     public static void send(String to, String sub,
-                            String msg, final String user, final String pass) {
+            String message) {
+
         Properties props = new Properties();
-
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.allow8bitmime", "true");
-        props.put("mail.smtps.allow8bitmime", "true");
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            @Override
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.port", "587"); //TLS Port
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.auth", "true"); //enable authentication
+        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+        Authenticator auth = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, pass);
+                return new PasswordAuthentication(fromEmail, password);
             }
-        });
-
+        };
+        Session session = Session.getInstance(props, auth);
+        MimeMessage msg = new MimeMessage(session);
+        //set message headers
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(sub, "utf-8");
-            message.setContent(msg, "text/html; charset=UTF-8");
-            Transport.send(message);
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            msg.addHeader("format", "flowed");
+            msg.addHeader("Content-Transfer-Encoding", "8bit");
+            msg.setFrom(new InternetAddress(fromEmail, "NoReply-JD"));
+            msg.setReplyTo(InternetAddress.parse(fromEmail, false));
+            msg.setSubject(sub, "UTF-8");
+            msg.setContent(message, "text/html; charset=UTF-8");
+            msg.setSentDate(new Date());
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            Transport.send(msg);
+            System.out.println("Gui mail thanh cong");
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
-    
-        public static void setContentRecover(String username, String code, String email) {
+
+    public static void setContentRecover(String username, String code, String email) {
         String subject = "[E-Learning] Please verify your email.";
         String message = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\">\n "
@@ -63,8 +72,6 @@ public class SendMail {
                 + "</body>\n"
                 + "\n"
                 + "</html>";
-        SendMail.send(email, subject, message, bundle.getString("email"), bundle.getString("pass"));
+        SendMail.send(email, subject, message);
     }
 }
-
-
