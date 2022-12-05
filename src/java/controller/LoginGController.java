@@ -39,7 +39,7 @@ public class LoginGController extends HttpServlet {
                 a = dao.getAccount(googlePojo.getEmail());
             } else {
                 a = AuthUtils.toAccount(googlePojo);
-                dao.register(a);
+                dao.register(a,true);
             }
             request.getSession().setAttribute("account", a);
             RequestDispatcher dis = request.getRequestDispatcher("home.jsp");

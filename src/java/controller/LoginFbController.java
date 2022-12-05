@@ -47,7 +47,7 @@ public class LoginFbController extends HttpServlet {
                 a = dao.getAccount(gpojo.getEmail());
             } else {
                 a = AuthUtils.toAccount(gpojo);
-                dao.register(a);
+                dao.register(a, true);
             }
             request.getSession().setAttribute("account", a);
             RequestDispatcher dis = request.getRequestDispatcher("home.jsp");

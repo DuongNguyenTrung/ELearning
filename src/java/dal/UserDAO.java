@@ -320,6 +320,39 @@ public class UserDAO extends BaseDAO<User> {
         }
     }
 
+    public void register(User u, boolean active) {
+        try {
+            String sql = "INSERT INTO [User]\n"
+                    + "           ([email]\n"
+                    + "           ,[password]\n"
+                    + "           ,[fullname]\n"
+                    + "           ,[gender]\n"
+                    + "           ,[phone]\n"
+                    + "           ,[hash],[active])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?,1)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, u.getEmail());
+            statement.setString(2, DigestUtils.md5Hex(""));
+            statement.setString(3, u.getFullname());
+            statement.setBoolean(4, u.isGender());
+            statement.setString(5, u.getPhone());
+            statement.setString(6, u.getHash());
+            statement.executeUpdate();
+
+            SendEmail se = new SendEmail(u.getEmail(), u.getHash());
+            se.sendMail();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void SignUp(String email, String password, String fullname, String phone, boolean gender, String hash) {
         try {
             String sql = "INSERT INTO [User]\n"
