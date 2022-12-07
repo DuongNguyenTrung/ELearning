@@ -91,11 +91,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-3 " style="background-color: #b0ecf1; height: 53rem; margin-top: 5rem;">
-                    <!--                    <form action="Course" method="GET">-->
-                    <form action="Course" method="GET">                        
-                        <div class="input-group mt-4">
-                            <div class="form-outline">
-                                <input name="txt" value="${course.cid.name}" type="search" id="txtCourses" class="form-control " placeholder="Search"style="width: 16.5rem;" />
+                        <!--                    <form action="Course" method="GET">-->
+                        <form action="Course" method="GET">                        
+                            <div class="input-group mt-4">
+                                <div class="form-outline">
+                                    <input name="txt" value="${course.cid.name}" type="search" id="txtCourses" class="form-control " placeholder="Search"style="width: 16.5rem;" />
                                 <div id="showList">
                                     <ul class="list-group">
 
@@ -108,7 +108,7 @@
                         </div>
                         <!--                    </form>-->
                         <!--Auto Complete-->
-                        
+
 
                         <hr style="border-top: 1px solid rgba(0,0,0,.1); border: 0;">
 
@@ -167,14 +167,14 @@
 
                 </div>
 
-                    <div class="col-9">
-                        <div class="container-xxl category">
-                            <section class="course_details_area section_gap">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-lg-8 course_details_left">
-                                            <div class="main_image">
-                                                <img class="img-fluid" src="${course.cid.thumbnail}" alt="">
+                <div class="col-9">
+                    <div class="container-xxl category">
+                        <section class="course_details_area section_gap">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-8 course_details_left">
+                                        <div class="main_image">
+                                            <img class="img-fluid" src="${course.cid.thumbnail}" alt="">
                                         </div>
                                         <div class="content_wrapper">
                                             <h4 class="title">${course.cid.name}</h4>
@@ -183,7 +183,7 @@
                                                 <br>
                                             </div>
 
-     
+
 
                                             <h4 class="title">Course Outline</h4>
                                             <div class="content">
@@ -247,77 +247,33 @@
                                                     <a href="#" class="primary-btn text-uppercase">Submit</a>
                                                 </div>
                                             </div>
-                                            <div class="comments-area mb-30">
-                                                <div class="comment-list">
-                                                    <div class="single-comment single-reviews justify-content-between d-flex">
-                                                        <div class="user justify-content-between d-flex">
-                                                            <div class="thumb">
-                                                                <img src="" alt="">
-                                                            </div>
-                                                            <div class="desc">
-                                                                <h5><a href="#">Emilly Blunt</a>
-                                                                    <div class="star">
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
+                                            <c:if test="${lf!=null}">
+                                                <div class="comments-area mb-30">
+                                                    <c:forEach var="c" items="${lf}">
+                                                        <div class="comment-list">
+                                                            <div class="single-comment single-reviews justify-content-between d-flex">
+                                                                <div class="user justify-content-between d-flex">
+                                                                    <div class="thumb">
+                                                                        <img src="" alt="">
                                                                     </div>
-                                                                </h5>
-                                                                <p class="comment">
-                                                                    This course is good
-                                                                </p>
+                                                                    <div class="desc">
+                                                                        <h5><a href="#">${c.fullname}</a>
+                                                                            <div class="star">
+                                                                                <c:forEach begin="1" var="a" end="5">
+                                                                                    <span class="fa fa-star <c:if test="${c.rating>=a}">checked</c:if>"></span>
+                                                                                </c:forEach>
+                                                                            </div>
+                                                                        </h5>
+                                                                        <p class="comment">
+                                                                            ${c.cmt}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </c:forEach>
                                                 </div>
-                                                <div class="comment-list">
-                                                    <div class="single-comment single-reviews justify-content-between d-flex">
-                                                        <div class="user justify-content-between d-flex">
-                                                            <div class="thumb">
-                                                                <img src="img/blog/c2.jpg" alt="">
-                                                            </div>
-                                                            <div class="desc">
-                                                                <h5><a href="#">Elsie Cunningham</a>
-                                                                    <div class="star">
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                    </div>
-                                                                </h5>
-                                                                <p class="comment">
-                                                                    Good & Quality
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-list">
-                                                    <div class="single-comment single-reviews justify-content-between d-flex">
-                                                        <div class="user justify-content-between d-flex">
-                                                            <div class="thumb">
-                                                                <img src="img/blog/c3.jpg" alt="">
-                                                            </div>
-                                                            <div class="desc">
-                                                                <h5><a href="#">Maria Luna</a>
-                                                                    <div class="star">
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star checked"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                    </div>
-                                                                </h5>
-                                                                <p class="comment">
-                                                                    The best cheap course 
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>

@@ -121,7 +121,7 @@
                                         <div class="position-relative overflow-hidden col-md-4">
                                             <img class="img-fluid h-100 w-100" src="data:image/png;base64,${o.thumbnail}" alt="">
                                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                                                <a href="blogs?action=detail&blog_id=${o.id}" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
                                                    style="border-radius: 30px 0 0 30px;">Read More</a>
 
                                             </div>
@@ -146,7 +146,7 @@
                                 <div class="position-relative overflow-hidden col-md-4">
                                     <img class="img-fluid h-100 w-100" src="data:image/png;base64,${newestPost.thumbnail}" alt="">
                                     <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                        <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                                        <a href="blogs?action=detail&blog_id=${newestPost.id}" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
                                            style="border-radius: 30px 0 0 30px;">Read More</a>
 
                                     </div>
@@ -447,7 +447,7 @@
                                 <c:forEach var="o" items="${listCategory}">
                                     <div class="col-md-4">
                                         <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
-                                            <a class="position-relative d-block overflow-hidden" href="">
+                                            <a class="position-relative d-block overflow-hidden" href="Course?category=${o.id}">
                                                 <img class="img-fluid" style="max-width:  100%; width:26rem; height:13rem;"  src="${o.image}" alt="">
                                                 <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
                                                      style="margin: 1px;">
@@ -481,7 +481,7 @@
                 </div>
                 <div class="row g-4 justify-content-center">
                     <c:forEach var="o" items="${listExpert}">
-                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="team-item bg-light">
                                 <div class="overflow-hidden">
                                     <img height="50" class="img-fluid" src="${o.avatar}" alt="">

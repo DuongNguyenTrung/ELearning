@@ -1,8 +1,3 @@
-<%-- 
-    Document   : blogDetail
-    Created on : Jun 14, 2022, 12:52:25 AM
-    Author     : DELL
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -34,6 +29,56 @@
         <link href="lib/animate/animate.min.css" rel="stylesheet">
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="css/blogdetail.css" rel="stylesheet">
+        <style>
+            .card {
+                background-color: #fff;
+                border: none;
+            }
+
+            .form-color {
+                background-color: #fafafa;
+            }
+
+            .form-control {
+                height: 48px;
+                border-radius: 25px;
+            }
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #35b69f;
+                outline: 0;
+                box-shadow: none;
+                text-indent: 10px;
+            }
+
+            .c-badge {
+                background-color: #35b69f;
+                color: white;
+                height: 20px;
+                font-size: 11px;
+                width: 92px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 2px;
+            }
+
+            .comment-text {
+                font-size: 13px;
+            }
+
+            .wish {
+                color: #35b69f;
+            }
+
+            .user-feed {
+                font-size: 14px;
+                margin-top: 12px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
@@ -133,9 +178,79 @@
                 </div>
             </div>
         </div>
-
+        <div class="container mt-5 mb-5">
+            <div class="row height d-flex justify-content-start align-items-center">
+                <div class="col-md-7">
+                    <div class="">
+                        <div class="p-3">
+                            <h6>Comments</h6>
+                        </div>
+                        <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
+                            <img
+                                src="https://i.imgur.com/zQZSWrt.jpg"
+                                width="50"
+                                class="rounded-circle mr-2"
+                                />
+                            <form action="blogs" method="post">
+                                <input hidden="" name="bid" value="${bid}"/>
+                                <input
+                                    type="text"
+                                    name="cmt"
+                                    class="form-control"
+                                    placeholder="Enter your comment..."
+                                    />
+                                <button class="btn btn-success">Send</button>
+                            </form>
+                        </div>
+                        <c:forEach items="${comments}" var="c">
+                            <div class="mt-2">
+                                <div class="d-flex flex-row p-3">
+                                    <img
+                                        src="https://i.imgur.com/zQZSWrt.jpg"
+                                        width="40"
+                                        height="40"
+                                        class="rounded-circle mr-3"
+                                        />
+                                    <div class="w-100">
+                                        <div
+                                            class="d-flex justify-content-between align-items-center"
+                                            >
+                                            <div class="d-flex flex-row align-items-center">
+                                                <span class="mr-2">Brian selter</span>
+                                                <small class="c-badge">Top Comment</small>
+                                            </div>
+                                            <small>${c.createAt}</small>
+                                        </div>
+                                        <p class="text-justify comment-text mb-0">
+                                            ${c.cmt}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <jsp:include page="footer.jsp"></jsp:include>
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+
     </body>
 </html>
 

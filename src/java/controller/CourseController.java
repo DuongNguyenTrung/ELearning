@@ -185,6 +185,7 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         //processRequest(request, response);
 //        String raw_begin = request.getParameter("begin");
 //        if(raw_begin==null || raw_begin.trim().length()==0){

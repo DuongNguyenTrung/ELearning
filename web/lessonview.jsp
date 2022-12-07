@@ -43,7 +43,74 @@
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css">
 
+        <style>
 
+            .rate{
+
+                border-bottom-right-radius: 12px;
+                border-bottom-left-radius: 12px;
+
+            }
+
+
+
+            .rating {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: center
+            }
+
+            .rating>input {
+                display: none
+            }
+
+            .rating>label {
+                position: relative;
+                width: 1em;
+                font-size: 30px;
+                font-weight: 300;
+                color: #FFD600;
+                cursor: pointer
+            }
+
+            .rating>label::before {
+                content: "\2605";
+                position: absolute;
+                opacity: 0
+            }
+
+            .rating>label:hover:before,
+            .rating>label:hover~label:before {
+                opacity: 1 !important
+            }
+
+            .rating>input:checked~label:before {
+                opacity: 1
+            }
+
+            .rating:hover>input:checked~label:before {
+                opacity: 0.4
+            }
+
+
+            .buttons{
+                top: 36px;
+                position: relative;
+            }
+
+
+            .rating-submit{
+                border-radius: 15px;
+                color: #fff;
+                height: 49px;
+            }
+
+
+            .rating-submit:hover{
+
+                color: #fff;
+            }
+        </style>
     </head>
 
     <body>
@@ -166,6 +233,9 @@
                                     </li>
 
                                     <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-note-sticky"></i>  Note</a></li>
+                                    <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#feedbackModal"
+                                                            class=" flex-shrink-0 btn btn-sm btn-primary px-3"
+                                                            style="border-radius: 0 30px 30px 0;">Feedback Now</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -272,42 +342,82 @@
                 </div>
             </div>
         </div>
+        <!--feedback-->
+        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Give Feedback</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="feedback" method="POST">
+                            <input hidden="" name="cid" value="${cid}"/>
+                            <span id="errorlogin"></span>
+                            <div class="mb-3">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <label class="form-label">Content</label>
+                                <textarea class="form-control" name="content" ></textarea>
+
+                                <div class="rate bg-success py-3 text-white mt-3">
+
+                                    <h6 class="mb-0">Rate your driver</h6>
+
+                                    <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                    </div>
 
 
-        <script type="text/javascript">
-            function ChooseLesson(param, param1) {
-                var lid = param;
-                var cid = param1;
-                $.ajax({
-                    type: 'POST',
-                    data: {lesid: lid, cesid: cid},
-                    url: "/Online-Learning-SWP/choselesson",
-                    success: function (data) {
-                        var row = document.getElementById("content");
-                        row.innerHTML = data;
-                    }
-                });
-            }
-        </script>
+                                    <div class="buttons px-4 mt-0">
+
+                                        <button class="btn btn-warning btn-block rating-submit">Submit</button>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-block">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function ChooseLesson(param, param1) {
+            var lid = param;
+            var cid = param1;
+            $.ajax({
+                type: 'POST',
+                data: {lesid: lid, cesid: cid},
+                url: "/Online-Learning-SWP/choselesson",
+                success: function (data) {
+                    var row = document.getElementById("content");
+                    row.innerHTML = data;
+                }
+            });
+        }
+    </script>
 
 
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-        <script src="js/lessonview.js"></script>
-    </body>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script src="js/lessonview.js"></script>
+</body>
 
 </html>
 

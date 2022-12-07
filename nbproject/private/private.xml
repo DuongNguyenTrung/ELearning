@@ -4,14 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/web/home.jsp</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/LoginGithubController.java</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/loginServlet.java</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/web/loginsdk.jsp</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/web/META-INF/context.xml</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/LoginFbController.java</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/utils/AuthUtils.java</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/LoginGController.java</file>
-            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/homeServlet.java</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/dal/CommentDAO.java</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/dto/FeedbackDTO.java</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/controller/CourseDetaiControllerl.java</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/web/lessonview.jsp</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/web/coursedetail.jsp</file>
+            <file>file:/E:/Workspace/Support/SWP_support/G4-F8clone/swp391_project-main/Elearning/src/java/dal/FeedbackDAO.java</file>
         </group>
     </open-files>
 </project-private>

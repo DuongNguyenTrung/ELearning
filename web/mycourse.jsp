@@ -131,7 +131,7 @@
                 <h6 class="card-title">${a.name}</h6>
                 <p class="card-text mb-3">${a.tagline}</p>
 
-                <a href="lessonview?cid=${a.id}&lid" class="mt-2 btn btn-primary">Start course</a>
+                <a href="lessonview?cid=${a.id}&lid" class="mt-2 btn btn-primary">Resume course</a>
             </div>
                                        <div class=" card-header">
     <i class="fa-regular fa-clock"></i> End date: ${a.validto}
