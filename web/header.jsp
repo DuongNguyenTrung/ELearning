@@ -40,10 +40,11 @@
                 </div>
 
                 <c:if test="${sessionScope.account==null}">
-                    <a href="#" data-bs-target="#loginModal" data-bs-toggle="modal" class=" login-triggerbtn btn-primary py-4 px-lg-5 d-none d-lg-block"style="color: #FFFFFF;" type="button">Join Now<i
-                            class="fa fa-arrow-right ms-3"></i></a>
-                    </c:if>
-                    <c:if test="${sessionScope.account!=null}">
+                    <button type="button" data-bs-target="#loginModal" data-bs-toggle="modal" class="btn btn-outline-primary">Login</button>
+                    <button type="button" data-bs-target="#registerModal" data-bs-toggle="modal" class="mx-3 btn btn-outline-success">Register</button>
+
+                </c:if>
+                <c:if test="${sessionScope.account!=null}">
                     <div class="dropdown">
 
                         <a id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" class="nav-item nav-link"> <i class="fa-solid fa-user"></i> ${sessionScope.account.username}</a>
@@ -61,5 +62,185 @@
             </div>
         </nav>
         <!-- Navbar End -->
-    </body>
+        <!--login-->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="login-nor" method="POST">
+                            <div class="alert-danger" role="alert">
+                                <p>${mess}</p>
+                            </div>
+                            <span id="errorlogin"></span>
+                            <div class="mb-3">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <label class="form-label">Email Address</label>
+                                <input type="text" class="form-control" id="loginemail" oninput="validationloginemail(this)" name="email" placeholder="Username" />
+                                <span class="" id="resultvalidationloginemail"></span>
+                            </div>
+                            <div class="mb-3">
+                                <i class="fas fa-lock prefix grey-text"></i>
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginpassword" name="password" placeholder="Password" />
+                            </div>
+                            <div class="mb-3">
+                                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember"/>
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                <a class="float-end text-info" href="user?action=recover">Forgot Password?</a></p
+                            </div>
+                            <div class="mb-3 d-flex justify-content-center">
+                                <input type="submit" class="btn btn-info w-100 rounded-pill" value="Submit"/>
+                            </div>
+                            <div class="social-container">
+                                <a href="${fburl}" class="social"><i class="fab fa-facebook-f"></i></a>
+                                <a href="${url}" class="social"><i class="fab fa-google-plus-g"></i></a>
+                                <a href="${githubUrl}" class="social"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                            <div class="modal-footer d-block">
+                                <p class="text-center">Not yet account?
+                                    <a href="#" data-bs-target="#registerModal" data-bs-toggle="modal" class="text-info" type="button">Sign up</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var hidden = ${requestScope.alerterror};
+        if (hidden <= 1) {
+            $('#loginModal').modal('show');
+
+        }
+    </script>
+    <!--login end-->
+    <!--register-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="register" method="POST">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-user-tie prefix grey-text"></i>
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Fullname" />
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <label class="form-label">Email Address</label>
+                            <input type="text" class="form-control" id="regisemail" oninput="validationemail(this)" name="email" placeholder="Username" />
+                            <span class="" id="resultvalidationemail"></span>
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" oninput="validationpass(this)" name="password"  placeholder="Password" />
+                            <span class="" id="resultvalidationpass"></span>
+                        </div>
+                        <div class="mb-3 position-relative">
+                            <i class="fa-solid fa-phone prefix grey-text"></i>
+                            <label class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" oninput="validationphone(this)" name="phone" placeholder="Phone" />
+                            <span class="" id="resultvalidationphone"></span>
+                        </div>
+                        <div class="mb-3">
+                            <i class="fa-solid fa-mars-and-venus prefix grey-text"></i>
+                            <label class="form-label">Gender:</label><br>
+                            <div class="d-flex justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="gender" value="male">
+                                    <label class="form-check-label" for="gender">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="gender" value="female">
+                                    <label class="form-check-label" for="gender">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-info w-100 rounded-pill">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //        var valiemail = document.getElementById("regisemail");
+        //        var text = document.getElementById("result");
+        //        valiemail.oninput = function () {
+        //            const pattern = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+        //            if (pattern.test(valiemail.value)) {
+        //                text.innerHTML = "This email can be use!"+ '  <i class="fa-solid fa-circle-check"></i>';
+        //                text.style.color = 'limegreen';
+        //                valiemail.style.border = '1px solid limegreen';
+        //                text.style.fontStyle = 'italic';
+        //            } else {
+        //                text.innerHTML = "Please input the correct email format (Ex: abc@example.com)"+'  <i class="fa-solid fa-circle-xmark"></i>';
+        //                text.style.color = 'crimson';
+        //                valiemail.style.border = '1px solid crimson';
+        //                text.style.fontStyle = 'italic';
+        //            }
+        //        };
+
+        function validationloginemail(param) {
+            var email = param.value;
+            $.ajax({
+                type: 'POST',
+                data: {email: email},
+                url: "/Online-Learning-SWP/valiregister",
+                success: function (data) {
+                    var row = document.getElementById("resultvalidationloginemail");
+                    row.innerHTML = data;
+                }
+            });
+        }
+        function validationemail(param) {
+            var email = param.value;
+            $.ajax({
+                type: 'POST',
+                data: {email: email},
+                url: "/Online-Learning-SWP/error",
+                success: function (data) {
+                    var row = document.getElementById("resultvalidationemail");
+                    row.innerHTML = data;
+                }
+            });
+        }
+        function validationphone(param) {
+            var phone = param.value;
+            $.ajax({
+                type: 'GET',
+                data: {phone: phone},
+                url: "/Online-Learning-SWP/error",
+                success: function (data) {
+                    var row = document.getElementById("resultvalidationphone");
+                    row.innerHTML = data;
+                }
+            });
+        }
+        function validationpass(param) {
+            var pass = param.value;
+            $.ajax({
+                type: 'GET',
+                data: {password: pass},
+                url: "/Online-Learning-SWP/valiregister",
+                success: function (data) {
+                    var row = document.getElementById("resultvalidationpass");
+                    row.innerHTML = data;
+                }
+            });
+        }
+    </script>
+</body>
 </html>

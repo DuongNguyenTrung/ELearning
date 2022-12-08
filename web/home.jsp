@@ -181,7 +181,7 @@
                                         <div class="position-relative overflow-hidden py-2" >
                                             <img class="img-fluid" src="${o.thumbnail}" alt="" style="max-width: 100%; width: 26rem; height: 15rem; ">
                                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                                                <a href="coursedetail?course_id=${o.id}" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
                                                    style="border-radius: 30px 0 0 30px;">Read More</a>
                                                 <c:if test="${account==null}">
                                                     <a data-bs-toggle="modal" data-bs-target="#loginModal"

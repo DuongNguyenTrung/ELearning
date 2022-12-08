@@ -4,13 +4,21 @@
  */
 package dal;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import model.Comment;
+import model.CommentDTO;
 import model.Feedback;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
 /**
  *
@@ -18,11 +26,14 @@ import org.hibernate.query.Query;
  */
 public class CommentDAO {
 
-    public List<Comment> findByBlogId(int bid) {
+    @SuppressWarnings("empty-statement")
+    public List<CommentDTO> findByBlogId(int bid) {
         Transaction transaction = null;
         try ( Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createNativeQuery("select * from Comment where blogId=:bid", Comment.class);
-            return query.setParameter("bid", bid).getResultList();
+            Query query = session.createNativeQuery("SELECT c.id ,cmt ,fullname,avatar ,createAt  from Comment c join [User] u on c.uid= u.id where blogId=:bid order by createAt desc").setResultTransformer(Transformers.aliasToBean(CommentDTO.class));
+            CommentDTO d = new CommentDTO();
+            List<CommentDTO> lo = query.setParameter("bid", bid).getResultList();
+            return lo;
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();

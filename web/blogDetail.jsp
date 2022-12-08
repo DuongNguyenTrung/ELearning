@@ -206,7 +206,7 @@
                             <div class="mt-2">
                                 <div class="d-flex flex-row p-3">
                                     <img
-                                        src="https://i.imgur.com/zQZSWrt.jpg"
+                                        src="./${c.avatar}"
                                         width="40"
                                         height="40"
                                         class="rounded-circle mr-3"
@@ -216,7 +216,7 @@
                                             class="d-flex justify-content-between align-items-center"
                                             >
                                             <div class="d-flex flex-row align-items-center">
-                                                <span class="mr-2">Brian selter</span>
+                                                <span class="mr-2">${c.fullname}</span>
                                                 <small class="c-badge">Top Comment</small>
                                             </div>
                                             <small>${c.createAt}</small>
