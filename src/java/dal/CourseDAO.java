@@ -636,7 +636,7 @@ public class CourseDAO extends BaseDAO<Course> {
         ArrayList<Course> list = new ArrayList<>();
         try {
             String sql = "Select * from Registrations inner join Course on course_id=Course.id\n"
-                    + "                     where [user_id]=? and (valid_to>= GETDATE() or valid_to is null) and valid_from is not null";
+                    + "where [user_id]=? and (valid_to>= GETDATE() or valid_to is null) and valid_from is not null";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);

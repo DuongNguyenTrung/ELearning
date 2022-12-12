@@ -230,6 +230,7 @@
                                             <td >
                                                 <a href="subjectdetails?id=<%=o.getId()%>&view=true"  class=""><i class="fa-solid fa-eye"></i>View </a>
                                                 <a href="subjectdetails?id=<%=o.getId()%>"  class=""><i class="fa-solid fa-pen"></i>Edit </a>
+                                                <a href="lesson?cid=<%=o.getId()%>"  class=""><i class="fas fa-book"></i> Lesson </a>
                                             </td>
                                         </tr>
                                         <%}%>

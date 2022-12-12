@@ -1,11 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
  */
 package Filter;
 
-import dal.UserDAO;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -15,17 +17,14 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import model.User;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author ADMIN
+ * @author duong
  */
-public class Authorization implements Filter {
+public class Authentication implements Filter {
 
     private static final boolean debug = true;
 
@@ -33,14 +32,20 @@ public class Authorization implements Filter {
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
+    private final List<String> lsURL = new ArrayList<String>() {
+        {
+            add("/courseregister");
+            add("/mycourse");
+        }
+    };
 
-    public Authorization() {
+    public Authentication() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("Authorization:DoBeforeProcessing");
+            log("Authentication:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -68,7 +73,7 @@ public class Authorization implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("Authorization:DoAfterProcessing");
+            log("Authentication:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -100,35 +105,31 @@ public class Authorization implements Filter {
      * @exception ServletException if a servlet error occurs
      */
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain )
+            FilterChain chain)
             throws IOException, ServletException {
-
+        HttpServletRequest rq = (HttpServletRequest) request;
+        HttpServletResponse rp = (HttpServletResponse) response;
         if (debug) {
-            log("Authorization:doFilter()");
+            log("Authentication:doFilter()");
         }
 
         doBeforeProcessing(request, response);
 
         Throwable problem = null;
+        String path = request.getServletContext().getContextPath();
+        System.out.println(path);
         try {
-            HttpServletRequest req = (HttpServletRequest) request;
-            
-            HttpSession session = req.getSession();
-            User a = (User) session.getAttribute("account");       
-            UserDAO dao = new UserDAO();
-         if(  dao.isAuthenticated(a.getRole().getId(), req.getServletPath()))
+            if (lsURL.contains(path)) {
+                if (rq.getSession().getAttribute("account") == null) {
+                    rp.sendRedirect("login-nor");
+                    return;
+                }
+            }
             chain.doFilter(request, response);
-        else
-         {
-              HttpServletResponse rep = (HttpServletResponse) response;
-               rep.sendRedirect("home");
-         }
         } catch (Throwable t) {
-             HttpServletResponse rep = (HttpServletResponse) response;
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
             // rethrow the problem after that.
-            rep.sendRedirect("home");
             problem = t;
             t.printStackTrace();
         }
@@ -177,7 +178,7 @@ public class Authorization implements Filter {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {
-                log("Authorization:Initializing filter");
+                log("Authentication:Initializing filter");
             }
         }
     }
@@ -188,9 +189,9 @@ public class Authorization implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("Authorization()");
+            return ("Authentication()");
         }
-        StringBuffer sb = new StringBuffer("Authorization(");
+        StringBuffer sb = new StringBuffer("Authentication(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
@@ -243,6 +244,5 @@ public class Authorization implements Filter {
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
     }
-
 
 }

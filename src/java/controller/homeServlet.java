@@ -8,13 +8,17 @@ package controller;
 import dal.UserDAO;
 import dal.BlogDAO;
 import dal.CourseDAO;
+import dal.SliderDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Optional;
 import model.CategoryCourse;
 import model.Course;
 import model.Blog;
@@ -39,6 +43,7 @@ public class homeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CourseDAO cdao = new CourseDAO();
+        SliderDAO sdao = new SliderDAO();
         List<Course> listtop = new ArrayList<>();
         listtop = cdao.getTop3Course();
         Course newestCourse = cdao.getNewestCourse();
@@ -55,6 +60,14 @@ public class homeServlet extends HttpServlet {
         newestPost = bdao.getNewestPost();
         List<Blog> listTopPost = new ArrayList<>();
         listTopPost = bdao.getTop4Post();
+
+        //cookie
+        String username = readCookie("email", request).orElse("");
+        String password = readCookie("password", request).orElse("");
+        request.setAttribute("username", username);
+        request.setAttribute("password", password);
+
+        request.setAttribute("sliders", sdao.findAllActive());
         request.setAttribute("listTopPost", listTopPost);
         request.setAttribute("newestPost", newestPost);
         request.setAttribute("listExpert", listExpert);
@@ -67,15 +80,13 @@ public class homeServlet extends HttpServlet {
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    public Optional<String> readCookie(String key, HttpServletRequest request) {
+        return Arrays.stream(request.getCookies())
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

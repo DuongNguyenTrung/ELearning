@@ -33,15 +33,14 @@ public class SendEmail {
 //        String email = "elearning2401@gmail.com";
 //        String password = "kgfcbcprfqsbtgdw";
         String email = "duongtongmon3@gmail.com";
-        String password = "nivkykpdqbgnrilk";
-        
-        Properties theProperties = new Properties();
+        String password = "swikakkcmpkhvofv";
 
+        Properties theProperties = new Properties();
         theProperties.put("mail.smtp.auth", "true");
         theProperties.put("mail.smtp.starttls.enable", "true");
         theProperties.put("mail.smtp.host", "smtp.gmail.com");
         theProperties.put("mail.smtp.port", "587");
-        theProperties.put("mail.smtp.ssl.trust", "true");
+        theProperties.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
         Session session = Session.getInstance(theProperties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -55,7 +54,7 @@ public class SendEmail {
             message.setFrom(new InternetAddress(email));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(toemail));
             message.setSubject("eLEARNING - Your registration of " + coursename);
-
+//            message.setText(content);
             message.setContent(content, "text/html");
 
             Transport.send(message);
@@ -70,7 +69,7 @@ public class SendEmail {
 
     public void sendMail() {
         // Enter the email address and password for the account from which verification link will be send
-         String email = "duongtongmon3@gmail.com";
+        String email = "duongtongmon3@gmail.com";
         String password = "nivkykpdqbgnrilk";
 
         Properties theProperties = new Properties();

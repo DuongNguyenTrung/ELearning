@@ -7,6 +7,7 @@ package dal;
 import java.util.Properties;
 import model.Comment;
 import model.Feedback;
+import model.Slider;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -43,6 +44,7 @@ public class HibernateUtil {
 
                 configuration.addAnnotatedClass(Feedback.class);
                 configuration.addAnnotatedClass(Comment.class);
+                configuration.addAnnotatedClass(Slider.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

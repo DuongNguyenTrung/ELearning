@@ -79,16 +79,16 @@
                             <div class="mb-3">
                                 <i class="fas fa-envelope prefix grey-text"></i>
                                 <label class="form-label">Email Address</label>
-                                <input type="text" class="form-control" id="loginemail" oninput="validationloginemail(this)" name="email" placeholder="Username" />
+                                <input type="text" class="form-control" id="loginemail" value="${username}" oninput="validationloginemail(this)" name="email" placeholder="Username" />
                                 <span class="" id="resultvalidationloginemail"></span>
                             </div>
                             <div class="mb-3">
                                 <i class="fas fa-lock prefix grey-text"></i>
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control" id="loginpassword" name="password" placeholder="Password" />
+                                <input type="password" class="form-control" id="loginpassword" value="${password}" name="password" placeholder="Password" />
                             </div>
                             <div class="mb-3">
-                                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember"/>
+                                <input type="checkbox" checked="" class="form-check-input" id="rememberMe" name="remember"/>
                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                                 <a class="float-end text-info" href="user?action=recover">Forgot Password?</a></p
                             </div>

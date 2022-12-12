@@ -20,6 +20,7 @@ import model.Course;
 import model.Price_Package;
 import model.User;
 import utils.EncodeData;
+import utils.MailHelper;
 
 /**
  *
@@ -247,7 +248,7 @@ public class courseregisterServlet extends HttpServlet {
                     + "                                                                                    </td>\n"
                     + "                                                                                </tr>\n"
                     + "                                                                                <tr>\n"
-                    + "                                                                                    <td class=\"esd-block-button es-p15t es-p15b es-p10r es-p10l\" align=\"center\"><span  class=\"es-button-border\" style=\" padding:20px; border-radius: 20px; background: #191919 none repeat scroll 0% 0%; border-style: solid; border-color: #2cb543; border-width: 0px;\"><a href=\"http://localhost:8084/Online-Learning-SWP/courseregister?action=active&id=" + EncodeData.enCode(acc.getId() + "") + "&cid=" + EncodeData.enCode(subjectid) + "\" class=\"es-button es-button-1655207450996\" target=\"_blank\" style=\"border-radius: 20px; font-family: lucida sans unicode,lucida grande,sans-serif; font-weight: normal; font-size: 18px; border-width: 10px 35px; background: #191919 none repeat scroll 0% 0%; border-color: #191919; color: #ffffff;\">Click here to confirm</a></span></td>\n"
+                    + "                                                                                    <td class=\"esd-block-button es-p15t es-p15b es-p10r es-p10l\" align=\"center\"><span  class=\"es-button-border\" style=\" padding:20px; border-radius: 20px; background: #191919 none repeat scroll 0% 0%; border-style: solid; border-color: #2cb543; border-width: 0px;\"><a href=\"http://localhost:8080/F8/courseregister?action=active&id=" + EncodeData.enCode(acc.getId() + "") + "&cid=" + EncodeData.enCode(subjectid) + "\" class=\"es-button es-button-1655207450996\" target=\"_blank\" style=\"border-radius: 20px; font-family: lucida sans unicode,lucida grande,sans-serif; font-weight: normal; font-size: 18px; border-width: 10px 35px; background: #191919 none repeat scroll 0% 0%; border-color: #191919; color: #ffffff;\">Click here to confirm</a></span></td>\n"
                     + "                                                                                </tr>\n"
                     + "                                                                            </tbody>\n"
                     + "                                                                        </table>\n"
@@ -530,6 +531,7 @@ public class courseregisterServlet extends HttpServlet {
 
 //        request.getRequestDispatcher("checkout.jsp").forward(request, response);
             sm.sendConfirmEMail(acc.getEmail(), course.getName(), content);
+//            MailHelper.sendMail(acc.getEmail(), "test", "test");
             request.getRequestDispatcher("activecourse.jsp").forward(request, response);
         }
     }
