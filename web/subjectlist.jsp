@@ -43,7 +43,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/cusdes.css" rel="stylesheet">
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+        <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
               rel="Stylesheet"type="text/css">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -56,7 +56,37 @@
         <script src="js/dashboard.js" ></script>
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <link href="css/cusdes.css" rel="stylesheet">
+        <style>
+            .ratings{
+                margin-right:10px;
+            }
 
+            .ratings i{
+
+                color:#cecece;
+                font-size:32px;
+            }
+
+            .rating-color{
+                color:#fbc634 !important;
+            }
+
+            .review-count{
+                font-weight:400;
+                margin-bottom:2px;
+                font-size:24px !important;
+            }
+
+            .small-ratings i{
+                color:#cecece;
+            }
+
+            .review-stat{
+                font-weight:300;
+                font-size:18px;
+                margin-bottom:2px;
+            }
+        </style>
     </head>
     <body>
         <div id="wrapper">
@@ -231,6 +261,7 @@
                                                 <a href="subjectdetails?id=<%=o.getId()%>&view=true"  class=""><i class="fa-solid fa-eye"></i>View </a>
                                                 <a href="subjectdetails?id=<%=o.getId()%>"  class=""><i class="fa-solid fa-pen"></i>Edit </a>
                                                 <a href="lesson?cid=<%=o.getId()%>"  class=""><i class="fas fa-book"></i> Lesson </a>
+                                                <a onclick="getFeedback(<%=o.getId()%>)" data-bs-toggle="modal" data-bs-target="#feedbackModal"><i class="fas fa-book"></i> Feedbacks </a>
                                             </td>
                                         </tr>
                                         <%}%>
@@ -300,8 +331,68 @@
 
         </div>
 
+        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Feedback details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="rating" class="d-flex justify-content-between align-items-center">
 
+                    </div>
+                    <div id="fbcomment" class="comments-area mb-30">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const getFeedback = async(id) => {
+                const data = await ((await fetch("api?action=feedback&id=" + id)).json());
+                console.log(data);
+                let li;
+                const map = data.map;
+                // thong ke
+                for (var key in map) {
+                    li += '<div class="ratings">';
+                    for (var i = 1; i < 6; i++) {
+                        if (key >= i) {
+                            li += '<i class="fa fa-star rating-color"></i>';
+                            continue;
+                        }
+                        li += '<i class="fa fa-star"></i>';
+                    }
+                    li += '</div><h5 class="review-count">' + map[key] + ' Reviews</h5>';
+                }
+                document.getElementById('rating').innerHTML = li;
 
+                //comment
+                let fb = '';
+                data.lf.forEach(i => {
+                    fb += `<div id="comment" class="comment-list">
+                                <div class="single-comment single-reviews justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        <div class="thumb">
+                                            <img src="" alt="">
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="#">` + i.fullname + `</a>
+                                                <div class="star">
+                                                    ` + ([...Array(5).keys()].map(item => `<span class="fa fa-star ` + (i.rating > item ? `rating-color` : '') + `"></span>`)).join('') + `    
+                                                </div>
+                                            </h5>
+                                            <p class="comment">` + i.cmt + `
+                            </p>
+                            </div>
+                            </div>
+                            </div>
+                            </div>`;
+                });
+
+                document.getElementById('fbcomment').innerHTML = fb;
+
+            };
+        </script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -319,18 +410,11 @@
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
-        <script src="js/demo/chart-column-demo.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
         type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </body>

@@ -6,6 +6,8 @@
 package controller;
 
 import dal.LessonDAO;
+import dal.NoteDAO;
+import dal.QADAO;
 import dal.QuizDAO;
 import dal.TopicDAO;
 import dal.User_LessonDAO;
@@ -30,6 +32,9 @@ import model.User_Quiz;
  * @author Laptop88
  */
 public class LessonViewController extends HttpServlet {
+    
+    private NoteDAO ndao = new NoteDAO();
+    private QADAO qadao = new QADAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +50,7 @@ public class LessonViewController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            
         }
     }
 
@@ -61,11 +66,11 @@ public class LessonViewController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         HttpSession session = request.getSession();
         User acc = (User) session.getAttribute("account");
         int cid = Integer.parseInt(request.getParameter("cid"));
-
+        
         TopicDAO td = new TopicDAO();
         LessonDAO ld = new LessonDAO();
         QuizDAO qd = new QuizDAO();
@@ -81,17 +86,25 @@ public class LessonViewController extends HttpServlet {
                 countlearned++;
             }
         }
-
+        
         int countlearn = ld.getLessonByCourseId(cid);
-
+        
         String lid = request.getParameter("lid");
+        Integer lidint;
         Lesson lesson = new Lesson();
         if (lid.equals("")) {
             lesson = ld.getLessonById(listlearn.get(0).getLesson().getId());
+            lidint = listlearn.get(0).getLesson().getId();
         } else {
             int lessonid = Integer.parseInt(lid);
             lesson = ld.getLessonById(lessonid);
+            lidint = lessonid;
         }
+        
+        request.setAttribute("notes", ndao.findByLessionAndUser(lidint, acc.getId()));
+        request.setAttribute("lid", lidint);
+        request.setAttribute("qa", qadao.getAllQA(lidint));
+        
         request.setAttribute("cid", cid);
         request.setAttribute("listlearn", listlearn);
         request.setAttribute("userquiz", userquiz);

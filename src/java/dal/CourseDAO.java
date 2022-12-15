@@ -49,6 +49,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return list;
 
     }
+
     public int getTotalCourse() {
         int total = 0;
         try {
@@ -64,6 +65,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public int getTotalResByDate(String from, String to, int a) {
         int total = 0;
         try {
@@ -85,6 +87,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public int getSuccessResByDate(String from, String to, int a) {
         int total = 0;
         try {
@@ -107,6 +110,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public int getCountResByDate(String from, String to) {
         int total = 0;
         try {
@@ -125,6 +129,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public int getCountResByDateAndStatus(String from, String to, String status) {
         int total = 0;
         try {
@@ -144,6 +149,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public int getTotalCourseByDate(String from, String to) {
         int total = 0;
         try {
@@ -161,6 +167,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return total;
 
     }
+
     public Course getCourseById1(int id) {
         try {
             String sql = "SELECT *FROM Course where id =" + id;
@@ -190,6 +197,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return null;
 
     }
+
     public Course getCourseById2(int id) {
         try {
             String sql = "SELECT *FROM Course where id =" + id;
@@ -216,6 +224,7 @@ public class CourseDAO extends BaseDAO<Course> {
         return null;
 
     }
+
     public Course getNameCourseById(int id) {
         try {
             String sql = "SELECT Course.id, Course.name FROM Course where id =" + id;
@@ -663,6 +672,37 @@ public class CourseDAO extends BaseDAO<Course> {
 
     }
 
+    public ArrayList<Course> getMyCoursesInactive(int id) {
+        ArrayList<Course> list = new ArrayList<>();
+        try {
+            String sql = "Select * from Registrations inner join Course on course_id=Course.id\n"
+                    + "where [user_id]=? and valid_from is null";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+            Category_SubCategory_CourseDAO catdao = new Category_SubCategory_CourseDAO();
+            while (rs.next()) {
+
+                Course r = new Course();
+                r.setId(rs.getInt("id"));
+
+                r.setName(rs.getString("name"));
+                r.setThumbnail(rs.getString("thumbnail"));
+                r.setDescription(rs.getString("description"));
+
+//                r.setCategorycourse((rs.getInt("category_id")));
+                list.add(r);
+
+            }
+
+        } catch (SQLException e) {
+        }
+        return list;
+
+    }
+
     public void CourseRegister(int userid, String courseid, String pricepkg) {
         try {
             String sql = "INSERT INTO [Registrations]\n"
@@ -849,14 +889,14 @@ public class CourseDAO extends BaseDAO<Course> {
         }
 
     }
-    
+
     public ArrayList<Course> getCourseName() {
         ArrayList<Course> list = new ArrayList<>();
         try {
-            String sql = "select a.id, a.name + ' by ' + d.fullname as 'name' from Course as a \n" +
-                    "inner join [Category_SubCategory_Course] as b on a.category_id = b.id\n" +
-                    "inner join [Category_course] as c on c.id = b.category_id\n" +
-                    "inner join [User] as d on a.owner = d.id";
+            String sql = "select a.id, a.name + ' by ' + d.fullname as 'name' from Course as a \n"
+                    + "inner join [Category_SubCategory_Course] as b on a.category_id = b.id\n"
+                    + "inner join [Category_course] as c on c.id = b.category_id\n"
+                    + "inner join [User] as d on a.owner = d.id";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

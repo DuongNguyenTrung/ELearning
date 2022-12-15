@@ -110,6 +110,62 @@
 
                 color: #fff;
             }
+            .card {
+                border: none;
+                border-radius: 20px;
+                padding: 20px;
+                margin-bottom: 40px
+            }
+
+            img {
+                border-radius: 10px;
+                padding-right: 5px;
+                width: 60px;
+                height: 55px
+            }
+
+            img:hover {
+                cursor: pointer
+            }
+
+            .round .align-self-start {
+                border-radius: 100%;
+                width: 45px;
+                height: 40px
+            }
+
+            .media .comment {
+                background: #F4F4F4;
+                border: none;
+                border-radius: 10px
+            }
+
+            h6.user {
+                color: #5C5C5C;
+                font-size: 15px !important;
+                padding-left: 15px !important;
+                margin-bottom: 0
+            }
+
+            h6.user:hover {
+                cursor: pointer;
+                text-decoration: underline
+            }
+
+            p.text {
+                margin-bottom: 0;
+                color: #8A8A8A !important;
+                font-size: 14px
+            }
+
+            .ml-auto {
+                margin-right: 10px
+            }
+
+            p .reply {
+                color: #5C5C5C;
+                font-size: 15px
+            }
         </style>
     </head>
 
@@ -232,7 +288,7 @@
                                         </svg>${countlearned}/${countlearn} Lessons
                                     </li>
 
-                                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-note-sticky"></i>  Note</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#noteModal"><i class="fa-solid fa-note-sticky"></i>  Note</a></li>
                                     <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#feedbackModal"
                                                             class=" flex-shrink-0 btn btn-sm btn-primary px-3"
                                                             style="border-radius: 0 30px 30px 0;">Feedback Now</a></li>
@@ -342,6 +398,52 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row ">
+                <h3>My Notifications</h3>
+            </div>
+        </div>
+        <div class="container mt-1 d-flex justify-content-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="mt-3 d-flex flex-row align-items-center p-3 form-color"> 
+                            <img src="https://i.imgur.com/zQZSWrt.jpg" width="50" class="rounded-circle mr-2">
+                            <form action="qa" method="post">
+                                <input hidden="" name="lid" value="${lid}"/>
+                                <input hidden="" name="cid" value="${cid}"/>
+                                <input name="ctent" type="text" class="form-control" placeholder="Enter your comment...">
+                                <button class="btn btn-primary" type="submit">Send</button>
+                            </form>
+                        </div>
+                        <ul class="list-unstyled">
+                            <!--FOURTH LIST ITEM-->
+                            <c:forEach items="${qa}" var="q">
+                                <li class="media my-5"> <span class="round"><img src="https://img.icons8.com/office/100/000000/user-group-man-man--v1.png" class="align-self-start mr-3"></span>
+                                    <div class="media-body">
+                                        <div class="row d-flex">
+                                            <h6 class="user">${q.question.fullname}</h6>
+                                            <div class="ml-auto">
+                                                <p class="text">${q.question.createAt}</p>
+                                            </div>
+                                        </div>
+                                        <p class="text">${q.question.ctent}</p>
+                                        <c:forEach var="a" items="${q.anwsers}">
+                                            <div class="media mt-3 comment"> <a href="#"><img src="https://img.icons8.com/bubbles/100/000000/lock-male-user.png" class="align-self-center mr-1"></a>
+                                                <div class="media-body">
+                                                    <p class="reply">${a.ctent}</p>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--feedback-->
         <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -383,21 +485,64 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Notes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3">
+                        <div class="col-auto">
+                            <label for="inputPassword2" class="visually-hidden"></label>
+                            <input type="text" class="form-control" id="notecontent" placeholder="note here...">
+                        </div>
+                        <div class="col-auto">
+                            <button onclick="addNote()" type="button" class="btn btn-primary mb-3">Add Note</button>
+                        </div>
+                    </form>
+                    <ul id="ls-note" class="list-group">
+                        <c:forEach items="${notes}" var="n">
+                            <li id="l${n.id}" class="list-group-item"> ${n.note} <span onclick="deleteNote(${n.id})">&times;</span> </li>
+                            </c:forEach>
+                    </ul>
+                </div>
+                <div class="modal-footer">
 
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
+        const addNote = async  () => {
+            console.log(${lid});
+            const note = $('#notecontent').val();
+            const res = await (await fetch('api?action=addnote&lid=' + ${lid} + '&note=' + note)).json();
+            console.log(res);
+            $('#ls-note').append('<li id="l' + res + '" class="list-group-item">' + note + '<span onclick="deleteNote(' + res + ')">&times;</span></li>');
+
+        };
+        const deleteNote = async (id) => {
+            console.log(id);
+            const res = await fetch('api?action=deletenote&id=' + id);
+            $('#l' + id).remove();
+        };
+
         function ChooseLesson(param, param1) {
             var lid = param;
             var cid = param1;
             $.ajax({
                 type: 'POST',
                 data: {lesid: lid, cesid: cid},
-                url: "/Online-Learning-SWP/choselesson",
+                url: "/F8/choselesson",
                 success: function (data) {
                     var row = document.getElementById("content");
                     row.innerHTML = data;
                 }
             });
         }
+
     </script>
 
 

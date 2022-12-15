@@ -36,12 +36,12 @@ public class myCourseServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User acc = (User) session.getAttribute("account");
         CourseDAO coursedao = new CourseDAO();
-     ArrayList<Course> courses=   coursedao.getMyCourses(acc.getId());
-     request.setAttribute("courses", courses);
-     request.getRequestDispatcher("mycourse.jsp").forward(request, response);
-      
-        }
-    
+        ArrayList<Course> courses = coursedao.getMyCourses(acc.getId());
+        request.setAttribute("courses", courses);
+        request.setAttribute("inactiveCourses", coursedao.getMyCoursesInactive(acc.getId()));
+        request.getRequestDispatcher("mycourse.jsp").forward(request, response);
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

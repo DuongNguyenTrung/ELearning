@@ -62,10 +62,13 @@ public class homeServlet extends HttpServlet {
         listTopPost = bdao.getTop4Post();
 
         //cookie
-        String username = readCookie("email", request).orElse("");
-        String password = readCookie("password", request).orElse("");
-        request.setAttribute("username", username);
-        request.setAttribute("password", password);
+        try {
+            String username = readCookie("email", request).orElse("");
+            String password = readCookie("password", request).orElse("");
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+        } catch (Exception e) {
+        }
 
         request.setAttribute("sliders", sdao.findAllActive());
         request.setAttribute("listTopPost", listTopPost);

@@ -9,7 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import model.Feedback;
 import org.hibernate.Session;
@@ -36,6 +38,29 @@ public class FeedbackDAO extends BaseDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+    public Map<Integer, Integer> aggregateByCourseId(int cid) throws ParseException {
+        Transaction transaction = null;
+        try ( Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            List<Object[]> lo = session.createNativeQuery("SELECT rating,count(*) FROM Feedback where courseId=:cid group by rating order by rating desc").setParameter("cid", cid).list();
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 5; i >= 1; i--) {
+                map.put(i, 0);
+                for (Object[] o : lo) {
+                    int key = Integer.valueOf(o[0].toString());
+                    int value = Integer.valueOf(o[1].toString());
+                    if (key == i) {
+                        map.put(key, value);
+                    }
+                }
+            }
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new HashMap<>();
         }
     }
 

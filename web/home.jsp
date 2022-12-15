@@ -90,7 +90,7 @@
                                         <a href="#" data-bs-target="#loginModal" data-bs-toggle="modal" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                                     </c:if>
                                     <c:if test="${sessionScope.account!=null}">
-                                        <a href="course.jsp" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                        <a href="coursedetail?course_id=1" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                                     </c:if>
                                 </div>
                             </div>
